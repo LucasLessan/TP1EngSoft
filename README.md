@@ -4,6 +4,7 @@
 - Álvaro Cândido de Oliveira Neto - 2019117198 (Full)
 - Larissa Oliveira Aguiar - 2020094295 (Full)
 - Lucas Santos Teles - 2017014995 (Full)
+- Giulia Monteiro Silva Gomes Vieira - 2016006492 (Full)
  
 ## Backlog do Produto
 Será desenvolvido um sistema de PDV com uma base comum que poderá ser adaptado para diferentes setores de mercado dependendo das intenções dos clientes:
