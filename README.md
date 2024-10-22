@@ -75,7 +75,7 @@ Obs.: As histórias do [Backlog do Sprint](#backlog-do-sprint) não estão na me
     2. Definir relacionamentos com produtos e vendedores. [Giulia]
 2. **Desenvolver sistema CRUD para gerenciamento de produtos.**
     1. Implementar funcionalidades para criar, ler, atualizar e remover produtos via interface de gerência. [Lucas]
-    2. Integrar o sistema com o banco de dados para persistência das operações CRUD. [Álvaro]
+    2. Integrar o sistema com o banco de dados para persistência das operações CRUD. [Giulia]
 3. **Desenvolver interface para manejo de estoque.**
     1. Criar a interface onde o gerente poderá criar, ler,  atualizar,  remover um produto no estoque. [Lucas]
 
