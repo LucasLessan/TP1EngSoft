@@ -42,14 +42,14 @@ Obs.: As histórias do [Backlog do Sprint](#backlog-do-sprint) não estão na me
 
 **Tarefas e responsáveis**:
 1. **Estruturar o banco de dados.**
-    1. Definir as tabelas, relacionamentos e atributos necessários para o armazenamento de dados dos usuários (ID, nome, e-mail, senha, tipo de usuário etc.). [Álvaro]
+    1. Definir as tabelas, relacionamentos e atributos necessários para o armazenamento de dados dos usuários (ID, nome, e-mail, senha, tipo de usuário etc.). [Giulia]
 2. **Criar sistema de login e autenticação de usuários.**
     1. Implementar o formulário de login com validação de credenciais. [Lucas]
 3. **Desenvolver sistema CRUD para gerenciamento de usuários.**
     1. Implementar funcionalidades para criar, ler, atualizar e remover usuários via interface de administração. [Álvaro, Larissa]
     2. Integrar o sistema com o banco de dados para persistência das operações CRUD. [Giulia]
 4. **Implementar a hierarquia dos tipos de usuários.**
-    1. Definir a hierarquia de usuários (ex: administrador, gerente, vendedor). [Giulia]
+    1. Definir a hierarquia de usuários (ex: administrador, gerente, vendedor). [Alvaro]
     2. Implementar controle de acesso baseado no tipo de usuário, garantindo que apenas usuários com permissões adequadas possam acessar determinadas funcionalidades. [Larissa]
 
 ---
@@ -71,10 +71,10 @@ Obs.: As histórias do [Backlog do Sprint](#backlog-do-sprint) não estão na me
 
 **Tarefas e responsáveis**:
 1. **Estruturar o banco de dados.**
-    1. Criar as tabelas para armazenar informações de produto (ID do produto, descrição, quantidade, preço etc.). [Lucas]
-    2. Definir relacionamentos com produtos e vendedores. [Larissa]
+    1. Criar as tabelas para armazenar informações de produto (ID do produto, descrição, quantidade, preço etc.). [Giulia]
+    2. Definir relacionamentos com produtos e vendedores. [Giulia]
 2. **Desenvolver sistema CRUD para gerenciamento de produtos.**
-    1. Implementar funcionalidades para criar, ler, atualizar e remover produtos via interface de gerência. [Giulia]
+    1. Implementar funcionalidades para criar, ler, atualizar e remover produtos via interface de gerência. [Lucas]
     2. Integrar o sistema com o banco de dados para persistência das operações CRUD. [Álvaro]
 3. **Desenvolver interface para manejo de estoque.**
     1. Criar a interface onde o gerente poderá criar, ler,  atualizar,  remover um produto no estoque. [Lucas]
@@ -85,7 +85,7 @@ Obs.: As histórias do [Backlog do Sprint](#backlog-do-sprint) não estão na me
 
 **Tarefas e responsáveis**:
 1. **Estruturar o banco de dados.**
-    1. Adicionar funcionalidades de atualizar e remover venda no banco de dados. [Lucas, Larissa]
+    1. Adicionar funcionalidades de atualizar e remover venda no banco de dados. [Giulia]
 2. **Desenvolver interface.**
     1. Adicionar funcionalidades de atualizar e remover venda na página do gerente. [Álvaro, Giulia]
 
