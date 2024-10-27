@@ -1,0 +1,26 @@
+{
+  "name": "tp1engsoft",
+  "version": "1.0.0",
+  "description": "## Membros da Equipe - Álvaro Cândido de Oliveira Neto - 2019117198 (Full) - Giulia Monteiro Silva Gomes Vieira - 2016006492 (Full) - Larissa Oliveira Aguiar - 2020094295 (Full) - Lucas Santos Teles - 2017014995 (Full)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasLessan/TP1EngSoft.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasLessan/TP1EngSoft/issues"
+  },
+  "homepage": "https://github.com/LucasLessan/TP1EngSoft#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
