@@ -1,7 +1,5 @@
 // src/App.js
-import React from 'react';
-import './App.css';
-import LoginPage from './LoginPage'; // Importa o componente de login
+import LoginPage from './components/pages/LoginPage'; // Importa o componente de login
 
 function App() {
   return (
@@ -9,6 +7,6 @@ function App() {
       <LoginPage /> {/* Renderiza o componente de login */}
     </div>
   );
-}
+};
 
 export default App;

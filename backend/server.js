@@ -6,7 +6,7 @@ require('dotenv').config(); // Carrega variáveis de ambiente do arquivo .env
 const authRoutes = require('./routes/authRoutes'); // Importa as rotas de autenticação
 
 const app = express(); // Cria uma instância do aplicativo Express
-const PORT = process.env.PORT || 3000; // Define a porta do servidor
+const PORT = process.env.PORT || 5000; // Define a porta do servidor
 
 app.use(cors()); // Permite solicitações CORS
 app.use(express.json()); // Habilita o parsing de JSON nas requisições
