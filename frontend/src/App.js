@@ -1,11 +1,10 @@
-// src/App.js
-import LoginPage from './components/pages/LoginPage'; // Importa o componente de login
+import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle';
 
 function App() {
   return (
-    <div className="App">
-      <LoginPage /> {/* Renderiza o componente de login */}
-    </div>
+    <LoginPage />
   );
 };
 
