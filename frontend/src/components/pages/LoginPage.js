@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from './LoginPage.module.css';
 import logo from '../../imgs/logo2.png';
 
-function LoginPage() {
+export default function LoginPage() {
 
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
@@ -15,7 +15,7 @@ function LoginPage() {
     setSenha(document.getElementById('floatingPassword').value);
 
     if(usuario === 'admin' && senha === 'admin') {
-      window.location.replace("/dashboard")
+      window.location.replace("/index/dashboard")
     }
   }
 
@@ -48,5 +48,3 @@ function LoginPage() {
     </div>
   );
 };
-
-export default LoginPage;

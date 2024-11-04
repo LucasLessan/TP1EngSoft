@@ -1,6 +1,8 @@
+// Pag de erro temporaria retirada de "https://reactrouter.com/en/main/start/tutorial"
+
 import { useRouteError } from "react-router-dom";
 
-function Error() {
+export default function Error() {
   const error = useRouteError();
   console.error(error);
 
@@ -14,5 +16,3 @@ function Error() {
     </div>
   );
 };
-
-export default Error;
