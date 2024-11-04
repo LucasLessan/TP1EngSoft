@@ -1,0 +1,162 @@
+/* Define o layout de fundo */
+.login_background {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(to bottom, #14d4a4, #0c5c94);
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif; /* Aplica a fonte Poppins ao corpo do texto */
+  padding: 20px;
+}
+
+/* Container principal */
+.login_container {
+  display: flex;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  max-width: 750px;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  align-items: center;
+}
+
+/* Estiliza a seção da mensagem de boas-vindas à esquerda */
+.welcome_message {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-right: 20px;
+}
+
+.welcome_message p {
+  margin-top: 20px;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.logo {
+  max-width: 150px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.logo_label {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Linha separadora */
+.separator_line {
+  display:flex;
+  width: 1px;
+  background-color: #000000;
+  height: 39vh;
+  margin: 1px 1px;
+}
+
+/* Estiliza o formulário de login à direita */
+.login_form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  align-items: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+/* Grupo de entrada */
+.input_group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.login_form label {
+  color: #555;
+  text-align: left;
+}
+
+/* Estilização dos inputs */
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+/* Botão de login */
+button {
+  padding: 10px;
+  background-color: #14d4a4;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0c5c94;
+}
+
+/* Mensagem de recuperação */
+.message {
+  margin-top: 15px;
+  text-align: center;
+  color: #555;
+}
+
+.message a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.message a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .welcome_message {
+    display: none; /* Esconde a mensagem de boas-vindas em telas pequenas */
+  }
+
+  .login_container {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
+
+  .separator_line {
+    display: none;
+  }
+
+  .login_form {
+    padding: 20px;
+  }
+}
