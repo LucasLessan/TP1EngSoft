@@ -6,4 +6,4 @@
     - sqlite3 sales_app.db < create_tables.sql
 
 3. CRUD operations for database
-    - import crud.py
+    - import crud.py or crud.js
