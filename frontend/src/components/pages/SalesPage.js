@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CartList from './CartList';
 import styles from './SalesPage.module.css';
 import logo from '../../imgs/logo2.png';
 import perfil_btn from '../../imgs/perfil-btn.png';
-import relatorio_btn from '../../imgs/relatorio-btn.jpg';
+import relatorio_btn from '../../imgs/relatorio-btn.png';
+import logo_client from '../../imgs/logo_cliente.png';
 
 function SalesPage() {
     const [cartItems, setCartItems] = useState([]);
     const [productId, setProductId] = useState('');
+    const [currentTime, setCurrentTime] = useState(new Date());
 
     // Exemplo de produtos
     const products = [
@@ -48,17 +50,46 @@ function SalesPage() {
         }
     };
 
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(timer); // Limpa o timer quando o componente desmonta
+    }, []);
+
+    const formatTime = (time) => {
+        return time.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    };
+
+    const formatDate = (date) => {
+        return date.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    };
+
     return (
         <div className={styles.salesPage}>
             <div className={styles.salesMenu}>
-                <div className={styles.leftMenu}></div>
+                <div className={styles.leftMenu}>
+                    <div className={styles.marcaClient}>
+                        <img src={logo_client} className={styles.logoClient}></img>
+                        <h3 className={styles.nomeClient}>Bar do Bola</h3>
+                    </div>
+                    <div className={styles.clockContainer}>
+                        <div className={styles.data}>{formatDate(currentTime)} - </div>
+                        <div className={styles.hora}>{formatTime(currentTime)}</div>
+                    </div>
+                </div>
                 <div className={styles.rightMenu}>
                     <div className={styles.logoPointify}>
                         <img src={logo} alt="Logo Pointfy" className={styles.logo} id="logo" />
                     </div>
                     <div className={styles.menu}>
-                        <button className={styles.btnRelatorio}>Relatorio</button>
-                        <button className={styles.btnPerfil}>Perfil</button>
+                        <button className={styles.btnRelatorio}>
+                            <img src={relatorio_btn} className={styles.relatorio_img} alt='Relatório'></img>
+                        </button>
+                        <button className={styles.btnPerfil}>
+                            <img src={perfil_btn} className={styles.perfil_img} alt='Perfil'></img>
+                        </button>
                     </div>
                 </div>
             </div>
