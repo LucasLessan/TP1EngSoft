@@ -2,16 +2,16 @@ const express = require("express");
 const authenticateToken = require('../middlewares/authMiddleware'); // Importa o middleware de autenticação
 const reportController = require('../controllers/reportController');
 const productController = require('../controllers/productController');
-const { newUser, deleteUser, getUser, updateUser, updateUserPermission  } = require("../controllers/usersController");
+const usersController = require("../controllers/usersController");
 const saleController = require('../controllers/salesController');
 const salesItemController = require('../controllers/salesItensController');
 const rotas = express.Router(); // Cria um roteador do Express
 
-rotas.post('/users', newUser)
-rotas.get('/users/:id', getUser)
-rotas.put('/users/:id', updateUser)
-rotas.delete('/users/:id', deleteUser)
-rotas.put('/users/:id/permission', updateUserPermission)
+rotas.post('/users', usersController.newUser)
+rotas.get('/users/:id', usersController.getUser)
+rotas.put('/users/:id', usersController.updateUser)
+rotas.delete('/users/:id', usersController.deleteUser)
+rotas.put('/users/:id/permission', usersController.updateUserPermission)
 
 rotas.post('/products', productController.newProduct);
 rotas.get('/products/:id', productController.getProduct);
