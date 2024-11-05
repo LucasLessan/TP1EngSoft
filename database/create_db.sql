@@ -31,10 +31,16 @@ CREATE TABLE Products (
 CREATE TABLE Sales (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     seller_id INTEGER,
-    sale_date TEXT NOT NULL,
+    sale_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     total_value REAL NOT NULL,
+    payment_method TEXT NOT NULL CHECK (payment_method IN ('Debit Card', 'Credit Card', 'PIX', 'Bank Transfer', 'Cash')),
+    installment BOOLEAN NOT NULL, 
+    number_of_installments INTEGER,  
+    installment_value REAL,
+    discount REAL DEFAULT 0,
     FOREIGN KEY (seller_id) REFERENCES Users(id)
 );
+
 
 -- Table 04: SalesItems
 ----------- relationship between products and sales
@@ -48,3 +54,4 @@ CREATE TABLE SalesItems (
     FOREIGN KEY (sale_id) REFERENCES Sales(id),
     FOREIGN KEY (product_id) REFERENCES Products(id)
 );
+

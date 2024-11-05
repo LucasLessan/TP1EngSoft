@@ -3,7 +3,7 @@
     - MAC: brew install sqlite3
 
 2. To create all tables in database (this script drops all old tables and create new ones)
-    - sqlite3 sales_app.db < create_tables.sql
+    - sqlite3 sales_app.db < create_db.sql
 
 3. CRUD operations for database
     - import crud.py or crud.js
