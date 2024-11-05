@@ -45,6 +45,28 @@ const updateUser = async (req, res) => {
     }
 };
 
+const updateUserPermission = async (req, res) => {
+    const { id } = req.params;
+    const { user_type } = req.body;
+
+    if (!user_type) {
+        return res.status(400).json({ error: 'Preencha o campo de permissões.' });
+    }
+
+    try {
+        await new Promise((resolve, reject) => {
+            db.run('UPDATE Users SET user_type = ? WHERE id = ?', [user_type, id], function(err) {
+                if (err) {
+                    return reject(err);
+                }
+                resolve();
+            });
+        });
+        return res.status(200).json({ message: 'Permissão do usuário atualizada com sucesso!' });
+    } catch (err) {
+        return res.status(500).json({ error: 'Erro ao atualizar permissão do usuário.' });
+    }
+};
 
 const deleteUser = async (req, res) => {
     const { id } = req.params;
@@ -92,6 +114,7 @@ module.exports = {
     newUser,
     updateUser,
     getUser,
-    deleteUser
+    deleteUser,
+    updateUserPermission
   };
   

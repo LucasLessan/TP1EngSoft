@@ -1,16 +1,17 @@
 const express = require("express");
 const authenticateToken = require('../middlewares/authMiddleware'); // Importa o middleware de autenticação
-
-const productController = require('./controllers/productController');
-const { newUser, deleteUser, getUser, updateUSer  } = require("./controllers/usersController");
-const saleController = require('./controllers/salesController');
-const salesItemController = require('./controllers/salesItemController');
+const reportController = require('../controllers/reportController');
+const productController = require('../controllers/productController');
+const { newUser, deleteUser, getUser, updateUser, updateUserPermission  } = require("../controllers/usersController");
+const saleController = require('../controllers/salesController');
+const salesItemController = require('../controllers/salesItensController');
 const rotas = express.Router(); // Cria um roteador do Express
 
 rotas.post('/users', newUser)
 rotas.get('/users/:id', getUser)
-rotas.put('/users/:id', updateUSer)
+rotas.put('/users/:id', updateUser)
 rotas.delete('/users/:id', deleteUser)
+rotas.put('/users/:id/permission', updateUserPermission)
 
 rotas.post('/products', productController.newProduct);
 rotas.get('/products/:id', productController.getProduct);
@@ -27,5 +28,10 @@ rotas.post('/salesitems', salesItemController.addSalesItem); // Adicionar item a
 rotas.get('/salesitems/:sale_id', salesItemController.getSalesItems); // Obter itens de uma venda específica
 rotas.put('/salesitems/:id', salesItemController.updateSalesItem); // Atualizar item de venda
 rotas.delete('/salesitems/:id', salesItemController.deleteSalesItem); // Excluir item de venda
+
+
+rotas.get('/reports/sales', reportController.getSalesReport); // Relatório de vendas
+rotas.get('/reports/products', reportController.getProductsReport); // Relatório de produtos
+
 
 module.exports = rotas;
