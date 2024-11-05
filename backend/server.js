@@ -3,6 +3,7 @@ const cors = require('cors'); // Importa o CORS para permitir solicitações de 
 const path = require('path'); // Importa o módulo path para manipulação de caminhos
 require('dotenv').config(); // Carrega variáveis de ambiente do arquivo .env
 
+const rotas = require('./routes/routes');
 const authRoutes = require('./routes/authRoutes'); // Importa as rotas de autenticação
 
 const app = express(); // Cria uma instância do aplicativo Express
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 
 // Rotas de autenticação
 app.use('/api/auth', authRoutes); // Define as rotas de autenticação
+app.use('/api/rotas', rotas); // Define as rotas de crud
 
 // Inicia o servidor
 app.listen(PORT, () => {
