@@ -106,6 +106,28 @@ const getUser =  async (req, res) => {
     }
 };
 
+const getAllUsers = async (req, res) => {
+    try {
+        // Consulta para buscar todos os usuários
+        const users = await new Promise((resolve, reject) => {
+            db.all('SELECT id, name, email, user_type FROM Users', (err, rows) => {
+                if (err) {
+                    return reject(err); // Em caso de erro na consulta
+                }
+                resolve(rows); // Retorna todos os usuários encontrados
+            });
+        });
+
+        if (users.length === 0) {
+            return res.status(404).json({ error: 'Nenhum usuário encontrado.' });
+        }
+
+        // Retorna a lista de usuários
+        return res.status(200).json(users);
+    } catch (err) {
+        return res.status(500).json({ error: 'Erro ao listar usuários.' });
+    }
+};
 
 
 
@@ -115,6 +137,7 @@ module.exports = {
     updateUser,
     getUser,
     deleteUser,
-    updateUserPermission
+    updateUserPermission,
+    getAllUsers
   };
   

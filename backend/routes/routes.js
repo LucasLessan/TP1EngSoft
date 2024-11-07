@@ -12,6 +12,7 @@ rotas.get('/users/:id', usersController.getUser)
 rotas.put('/users/:id', usersController.updateUser)
 rotas.delete('/users/:id', usersController.deleteUser)
 rotas.put('/users/:id/permission', usersController.updateUserPermission)
+rotas.get('/users', usersController.getAllUsers);
 
 rotas.post('/products', productController.newProduct);
 rotas.get('/products/:id', productController.getProduct);

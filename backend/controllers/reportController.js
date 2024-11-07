@@ -28,9 +28,11 @@ const getProductsReport = async (req, res) => {
 
         return res.status(200).json(report);
     } catch (err) {
+        console.error('Erro ao gerar relatório de produtos:', err);  // Log do erro para depuração
         return res.status(500).json({ error: 'Erro ao gerar relatório de produtos.' });
     }
 };
+
 
 module.exports = {
     getSalesReport,
