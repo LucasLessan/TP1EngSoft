@@ -1,0 +1,171 @@
+.salesPage {
+  display: flex;
+  flex-direction: column; /* Coloca o menu de vendas em cima e o conteúdo embaixo */
+  width: 100%;
+  height: 100vh; /* Ocupa toda a altura da viewport */
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.salesMenu {
+  padding: 15px;
+  text-align: center; /* Centraliza o texto */
+  flex: 0 0 30%; /* Ocupar 20% da altura */
+  display: flex;
+}
+
+.leftMenu{
+  flex: 0 0 60%; /* Ocupa 60% da largura */
+  flex-direction: column;
+  display: flex;               /* Usar Flexbox para disposição vertical */
+  height: 100%;
+  border-radius: 15px;
+}
+
+.rightMenu{
+  flex: 0 0 37%; /* Ocupa 37% da largura */
+  flex-direction: column;
+  display: flex; 
+  border-radius: 15px;
+  margin-left: 30px;
+  height: 100%;
+}
+
+.logoPointify{
+  flex: 0 0 50%;
+  border-radius: 15px;
+  display: grid; /* Ativa o Grid */
+  justify-items: end;
+}
+
+.menu {
+  flex: 0 0 40%;
+  display: flex;
+  border-radius: 15px;
+  justify-content: end;
+  align-content: end;
+}
+
+.productCartInfo {
+  display: flex; /* Coloca leftContainer e rightContainer lado a lado */
+  flex: 0 0 67%; /* Ocupar 20% da altura */
+}
+
+.leftContainer {
+  flex: 0 0 60%; /* Ocupa 60% da largura */
+  flex-direction: column;
+  display: flex;               /* Usar Flexbox para disposição vertical */
+  height: 100%;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.rightContainer {
+  flex: 0 0 37%; /* Ocupa 37% da largura */
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-left: 30px;
+  padding: 10px;
+  margin-top: 10px;
+  height: 100%;
+}
+
+.cartContainer {
+  flex: 0 0 92%;               /* Ocupa 90% da altura do leftContainer */
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 15px;
+}
+
+.inputContainer {
+  flex: 0 0 5%;               /* Ocupa 10% da altura do leftContainer */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 15px;
+}
+
+input {
+  border-radius: 15px;
+  height: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.logo {
+  max-width: 80px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.btnRelatorio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none; /* Remove a borda do botão, se necessário */
+  cursor: pointer; /* Muda o cursor para indicar que é clicável */
+  width: 40px;
+  height: 40px;
+  transition: box-shadow 0.5s ease;
+}
+
+.btnRelatorio:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: transparent
+}
+
+.relatorio_img {
+  width: 40px;
+  height: 40px;
+}
+
+.btnPerfil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none; /* Remove a borda do botão, se necessário */
+  cursor: pointer; /* Muda o cursor para indicar que é clicável */
+  width: 40px;
+  height: 40px;
+  transition: box-shadow 0.5s ease;
+}
+
+.btnPerfil:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: transparent
+}
+
+.perfil_img {
+  width: 40px;
+  height: 33px;
+}
+
+.marcaClient {
+  display: flex;
+  flex: 0 0 50%;
+  border-radius: 15px;
+  align-items: center;
+}
+
+.logoClient {
+  max-width: 120px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  margin-right: 20px;
+}
+
+.clockContainer {
+  display: flex;
+  flex: 0 0 50%;
+  align-items: end;
+}
+
+.data{
+  margin-right: 3px;
+}

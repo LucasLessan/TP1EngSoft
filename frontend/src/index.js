@@ -8,7 +8,7 @@ import LoginPage from './components/pages/LoginPage';
 import Index from './components/pages/Index'; // Se houver problema, mudar nome do arquivo para IndexPage
 import Dashboard from './components/layout/Dashboard';
 import Usuarios from './components/layout/Usuarios';
-import Vendas from './components/layout/Vendas';
+import SalesPage from './components/layout/SalesPage';
 import Estoque from './components/layout/Estoque';
 
 import './index.css';
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
           },
           {
             path: "vendas",
-            element: <Vendas />,
+            element: <SalesPage />,
           },
           {
             path: "estoque",
