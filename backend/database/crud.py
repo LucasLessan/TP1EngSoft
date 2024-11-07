@@ -16,7 +16,7 @@ def create_user(name, email, password, user_type):
 
 # R: Function to read users with optional filtering
 def read_users(name=None, email=None, user_type=None):
-    query = "SELECT * FROM Users WHERE 1=1"  # Start with a basic query
+    query = "SELECT * FROM Users WHERE 1=1" 
     params = []
 
     if name is not None:
@@ -69,7 +69,7 @@ def create_product(description, quantity, price):
 
 # R: Function to read products with optional filtering
 def read_products(description=None, quantity=None, price=None):
-    query = "SELECT * FROM Products WHERE 1=1"  # Start with a basic query
+    query = "SELECT * FROM Products WHERE 1=1" 
     params = []
 
     if description is not None:
@@ -128,7 +128,7 @@ def create_sale(seller_id, total_value, payment_method, installment, number_of_i
 # R: Function to read sales with optional filtering
 def read_sales(seller_id=None, sale_date=None, total_value=None, payment_method=None, 
                installment=None, number_of_installments=None, discount=None):
-    query = "SELECT * FROM Sales WHERE 1=1"  # Start with a basic query
+    query = "SELECT * FROM Sales WHERE 1=1"
     params = []
 
     if seller_id is not None:
