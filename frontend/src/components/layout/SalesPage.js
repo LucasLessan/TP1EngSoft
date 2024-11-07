@@ -67,7 +67,7 @@ export default function SalesPage() {
     };
 
     return (
-        <div className={styles.salesPage}>
+        <div className={`h-100 ${styles.salesPage}`}>
             <div className={styles.salesMenu}>
                 <div className={styles.leftMenu}>
                     <div className={styles.marcaClient}>
