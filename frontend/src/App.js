@@ -1,12 +1,7 @@
-// src/App.js
-import LoginPage from './components/pages/LoginPage'; // Importa o componente de login
+import { Outlet } from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <LoginPage /> {/* Renderiza o componente de login */}
-    </div>
+    <Outlet />
   );
-};
-
-export default App;
+}

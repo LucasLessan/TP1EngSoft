@@ -1,10 +1,54 @@
 // src/LoginPage.js
-// import { useState } from 'react';
+import { useState } from 'react';
 
 import styles from './LoginPage.module.css';
 import logo from '../../imgs/logo2.png';
 
-function LoginPage() {
+export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // Função de login que faz a requisição ao backend
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Evita o recarregamento da página ao enviar o formulário
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user: email, passwd: password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Armazena o token no localStorage para uso futuro
+        localStorage.setItem('token', data.token);
+        alert("Login realizado com sucesso!");
+        // Redireciona o usuário para a dashboard ou outra página
+        // Exemplo: window.location.href = '/dashboard';
+      } else {
+        // Exibe a mensagem de erro no frontend
+        setErrorMessage(data.message || 'Erro no login. Verifique suas credenciais.');
+      }
+    } catch (error) {
+      setErrorMessage('Erro de conexão com o servidor. Tente novamente mais tarde.');
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setUsuario(document.getElementById('floatingInput').value);
+    setSenha(document.getElementById('floatingPassword').value);
+
+    if(usuario === 'admin' && senha === 'admin') {
+      window.location.replace("/index/dashboard")
+    }
+  }
+
   return (
     <div className={styles.login_background}>
       <div className={styles.login_container}>
@@ -17,22 +61,39 @@ function LoginPage() {
         
         <div className={styles.separator_line}></div>
         
-        <form className={styles.login_form}>
+        <form className={styles.login_form} onSubmit={handleLogin}>
           <h2>Login</h2>
           <div className={`form-floating mb-3 ${styles.input_group}`}>
-            <input type="email" className="form-control" id="floatingInput" placeholder="" required />
+            <input
+              type="email"
+              className="form-control"
+              id="floatingInput"
+              placeholder="Usuário"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            {/* <input type="text" name="usuario" className="form-control" id="floatingInput" placeholder="" required /> */}
             <label htmlFor="floatingInput">Usuário</label>
           </div>
           <div className={`form-floating ${styles.input_group}`}>
-            <input type="password" className="form-control" id="floatingPassword" placeholder="" required />
+            <input
+              type="password"
+              className="form-control"
+              id="floatingPassword"
+              placeholder="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            {/* <input type="password" name="senha" className="form-control" id="floatingPassword" placeholder="" required /> */}
             <label htmlFor="floatingPassword">Senha</label>
           </div>
           <button type="submit">Entrar</button>
+          {errorMessage && <p className={styles.error_message}>{errorMessage}</p>}
           <p className={styles.message}>Esqueceu sua senha? <a href="/">Recuperar</a></p>
         </form>
       </div>
     </div>
   );
 };
-
-export default LoginPage;
