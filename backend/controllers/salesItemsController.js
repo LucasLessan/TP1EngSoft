@@ -1,6 +1,6 @@
-// salesItemController.js
-const db = require('../database/db');
+const crud = require('../database/crud');  // Importing the crud functions
 
+// Function to add a new sales item
 const addSalesItem = async (req, res) => {
     const { sale_id, product_id, quantity, price } = req.body;
 
@@ -10,14 +10,10 @@ const addSalesItem = async (req, res) => {
 
     try {
         const result = await new Promise((resolve, reject) => {
-            db.run(
-                'INSERT INTO SalesItems (sale_id, product_id, quantity, price) VALUES (?, ?, ?, ?)',
-                [sale_id, product_id, quantity, price],
-                function(err) {
-                    if (err) return reject(err);
-                    resolve(this.lastID);
-                }
-            );
+            crud.createSaleItem(sale_id, product_id, quantity, price, (err, result) => {  // Using the createSaleItem function from crud
+                if (err) return reject(err);
+                resolve(result);
+            });
         });
         return res.status(201).json({ id: result, message: 'Item de venda adicionado com sucesso!' });
     } catch (err) {
@@ -25,11 +21,12 @@ const addSalesItem = async (req, res) => {
     }
 };
 
+// Function to get all sales items for a specific sale
 const getSalesItems = async (req, res) => {
     const { sale_id } = req.params;
     try {
         const items = await new Promise((resolve, reject) => {
-            db.all('SELECT * FROM SalesItems WHERE sale_id = ?', [sale_id], (err, rows) => {
+            crud.readProductsInSale([sale_id], null, null, null, (err, rows) => {  // Using the readProductsInSale function from crud
                 if (err) return reject(err);
                 resolve(rows);
             });
@@ -40,13 +37,18 @@ const getSalesItems = async (req, res) => {
     }
 };
 
+// Function to update a sales item
 const updateSalesItem = async (req, res) => {
     const { id } = req.params;
     const { quantity, price } = req.body;
 
+    if (!quantity || !price) {
+        return res.status(400).json({ error: 'Preencha todos os campos.' });
+    }
+
     try {
         await new Promise((resolve, reject) => {
-            db.run('UPDATE SalesItems SET quantity = ?, price = ? WHERE id = ?', [quantity, price, id], function(err) {
+            crud.updateSaleItem(id, quantity, price, (err) => {  // Using the updateSaleItem function from crud
                 if (err) return reject(err);
                 resolve();
             });
@@ -57,11 +59,12 @@ const updateSalesItem = async (req, res) => {
     }
 };
 
+// Function to delete a sales item
 const deleteSalesItem = async (req, res) => {
     const { id } = req.params;
     try {
         await new Promise((resolve, reject) => {
-            db.run('DELETE FROM SalesItems WHERE id = ?', [id], function(err) {
+            crud.deleteSaleItem(id, (err) => {  // Using the deleteSaleItem function from crud
                 if (err) return reject(err);
                 resolve();
             });

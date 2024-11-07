@@ -1,18 +1,17 @@
-// productController.js
-const db = require('../database/db');
+const crud = require('../database/crud');  // Importing the crud functions
 
 const newProduct = async (req, res) => {
-    const { name, description, quantity, price } = req.body;
+    const { description, quantity, price } = req.body;
 
-    if (!name || !description || !quantity || !price) {
+    if (!description || !quantity || !price) {
         return res.status(400).json({ error: 'Preencha todos os campos.' });
     }
 
     try {
         const result = await new Promise((resolve, reject) => {
-            db.run('INSERT INTO Products (name, description, quantity, price) VALUES (?, ?, ?, ?)', [name, description, quantity, price], function(err) {
+            crud.createProduct(description, quantity, price, function(err, result) {  // Using the createProduct function from crud
                 if (err) return reject(err);
-                resolve(this.lastID);
+                resolve(result);
             });
         });
         return res.status(201).json({ id: result, message: 'Produto criado com sucesso!' });
@@ -25,7 +24,7 @@ const getProduct = async (req, res) => {
     const { id } = req.params;
     try {
         const product = await new Promise((resolve, reject) => {
-            db.get('SELECT * FROM Products WHERE id = ?', [id], (err, row) => {
+            crud.readProducts(id, (err, row) => {  // Using the readProducts function from crud
                 if (err) return reject(err);
                 resolve(row);
             });
@@ -40,11 +39,11 @@ const getProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     const { id } = req.params;
-    const { name, description, quantity, price } = req.body;
+    const { description, quantity, price } = req.body;
 
     try {
         await new Promise((resolve, reject) => {
-            db.run('UPDATE Products SET name = ?, description = ?, quantity = ?, price = ? WHERE id = ?', [name, description, quantity, price, id], function(err) {
+            crud.updateProduct(id, description, quantity, price, function(err) {  // Using the updateProduct function from crud
                 if (err) return reject(err);
                 resolve();
             });
@@ -59,7 +58,7 @@ const deleteProduct = async (req, res) => {
     const { id } = req.params;
     try {
         await new Promise((resolve, reject) => {
-            db.run('DELETE FROM Products WHERE id = ?', [id], function(err) {
+            crud.deleteProduct(id, function(err) {  // Using the deleteProduct function from crud
                 if (err) return reject(err);
                 resolve();
             });
