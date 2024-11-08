@@ -90,4 +90,4 @@ Obs.: As histórias do [Backlog do Sprint](#backlog-do-sprint) não estão na me
     1. Adicionar funcionalidades de atualizar e remover venda na página do gerente. [Álvaro, Giulia]
 
 ## Tecnologias
-- React, Express, NodeJS, Python, MariaDB
+- React, Express, NodeJS, javascript, sqLite
