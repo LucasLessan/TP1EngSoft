@@ -21,7 +21,7 @@ CREATE TABLE Users (
 CREATE TABLE Products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    description TEXT NOT NULL,
+    desc TEXT,
     quantity INTEGER NOT NULL,
     price REAL NOT NULL
 );
@@ -49,5 +49,11 @@ CREATE TABLE SalesItems (
     FOREIGN KEY (product_id) REFERENCES Products(id)
 );
 
-INSERT INTO Users (id, name, email, password, user_type) VALUES (0, 'Junin Zik4', 'junin244@pointify.com', '$2b$10$2cDEQ4XppsQQmY71w2a5V.EDX6x.q4b0zlHpNTIljGqnbl99vFmf2', 'Admin');
-INSERT INTO Users (id, name, email, password, user_type) VALUES (1, 'Junin Zik42', 'junin2442@pointify.com', '$2b$10$2cDEQ4XppsQQmY71w2a5V.EDX6x.q4b0zlHpNTIljGqnbl99vFmf2', 'Admin');
+INSERT INTO Users (id, name, email, password, user_type) VALUES (1, 'Alvaro', 'alvaro@pointify.com', '$2b$10$wv3mIBDkAHsRi72z.4A6QexhZh5HPwAxUwEX/G1sEF60gDwH8NMWu', 'Admin');
+INSERT INTO Users (id, name, email, password, user_type) VALUES (2, 'Giulia', 'giulia@pointify.com', '$2b$10$LOKAYiO/U6jUCXx5G0J0i.qZFiL6y0EKl/0N0egu7g7utGTAcn1tm', 'Admin');
+INSERT INTO Users (id, name, email, password, user_type) VALUES (3, 'Larissa', 'larissa@pointify.com', '$2b$10$5Dv22euNNLQTKBoDBBuwsOzRak/1AafDcO6VqkzhqWUUc31DaYk7i', 'Admin');
+INSERT INTO Users (id, name, email, password, user_type) VALUES (4, 'Lucas', 'lucas@pointify.com', '$2b$10$Ctjzq8pJmwDNIN/mTim.xOJf/cyVy7Qnkh6nEcFFRqy304XL1TCkm', 'Admin');
+
+INSERT INTO Products (id, name, desc, quantity, price) VALUES (1, 'Boxguard', 'Full military bot.', 17, 150000.0);
+INSERT INTO Products (id, name, desc, quantity, price) VALUES (2, 'VTOL', 'Vertical Takeoff and Landing vehicle.', 3, 25000000.0);
+INSERT INTO Products (id, name, desc, quantity, price) VALUES (3, 'Colt 1911', 'Very reliable firearm.', 250, 1500.0);

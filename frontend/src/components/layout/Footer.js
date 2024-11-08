@@ -1,4 +1,4 @@
-// Adaptadp de mdbootstrap.com
+// Adaptado de mdbootstrap.com
 
 import { Link } from 'react-router-dom';
 
@@ -6,33 +6,7 @@ import styles from './Footer.module.css';
 
 export default function Footer() {
   return (
-    <footer className={`text-center text-lg-start text-muted ${styles.footer}`}>
-      {/* <section className="">
-        <div className="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
-        </div>
-
-        <div>
-          <a href="" className="me-4 text-reset">
-            <i className="fab fa-facebook-f"></i>
-          </a>
-          <a href="" className="me-4 text-reset">
-            <i className="fab fa-twitter"></i>
-          </a>
-          <a href="" className="me-4 text-reset">
-            <i className="fab fa-google"></i>
-          </a>
-          <a href="" className="me-4 text-reset">
-            <i className="fab fa-instagram"></i>
-          </a>
-          <a href="" className="me-4 text-reset">
-            <i className="fab fa-linkedin"></i>
-          </a>
-          <a href="" className="me-4 text-reset">
-            <i className="fab fa-github"></i>
-          </a>
-        </div>
-      </section> */}
+    <footer className={`text-center text-lg-start text-muted fixed-bottom ${styles.footer}`}>
     
       <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <div className="container text-center text-md-start mt-5">
@@ -45,24 +19,6 @@ export default function Footer() {
                 Criamos sistemas PDVs responsivos, customizáveis e fáceis de usar para sua empresa a um preço que cabe no seu bolso.
               </p>
             </div>
-    
-            {/* <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">
-                Products
-              </h6>
-              <p>
-                <a href="#!" className="text-reset">Angular</a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">React</a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">Vue</a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">Laravel</a>
-              </p>
-            </div> */}
     
             <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">

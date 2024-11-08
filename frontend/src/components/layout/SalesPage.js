@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import CartList from './CartList';
 import styles from './SalesPage.module.css';
 import logo from '../../imgs/logo2.png';
@@ -10,13 +10,28 @@ export default function SalesPage() {
     const [cartItems, setCartItems] = useState([]);
     const [productId, setProductId] = useState('');
     const [currentTime, setCurrentTime] = useState(new Date());
+    const [products, setProdutosList] = useState([]); // Estado para armazenar a lista de usuários
+    const [error, setError] = useState(null); // Estado para armazenar erros (caso aconteçam)
 
-    // Exemplo de produtos
-    const products = [
-        { id: 1, name: 'Produto A', price: 10.0 },
-        { id: 2, name: 'Produto B', price: 20.0 },
-        { id: 3, name: 'Produto C', price: 30.0 },
-    ];
+    // Função para carregar os produtos da API
+    useEffect(() => {
+        const fetchProdutos = async () => {
+            try {
+                // Fazendo a requisição GET para buscar os produtos
+                const response = await fetch('http://localhost:5000/api/rotas/products');
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar os produtos');
+                }
+                const data = await response.json(); // Convertendo a resposta para JSON
+                console.log(data);
+                setProdutosList(data); // Atualizando o estado com os dados dos produtos
+            } catch (error) {
+                setError(error.message); // Armazenando o erro, caso haja algum
+            }
+        };
+
+        fetchProdutos(); // Chama a função para buscar os dados dos usuários quando o componente for montado
+    }, []); // O array vazio significa que a função só será chamada uma vez, na montagem do componente
 
     const handleAddToCart = () => {
         const product = products.find((p) => p.id === parseInt(productId));

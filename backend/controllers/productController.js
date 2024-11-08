@@ -2,16 +2,17 @@
 const db = require('../database/db');
 
 const newProduct = async (req, res) => {
-    const { name, description, quantity, price } = req.body;
+    const { name, desc, quantity, price } = req.body;
 
-    if (!name || !description || !quantity || !price) {
-        return res.status(400).json({ error: 'Preencha todos os campos.' });
+    if (!name || !desc || !quantity || !price) {
+      return res.status(400).json({ error: 'Preencha todos os campos.' });
     }
 
     try {
         const result = await new Promise((resolve, reject) => {
-            db.run('INSERT INTO Products (name, description, quantity, price) VALUES (?, ?, ?, ?)', [name, description, quantity, price], function(err) {
+            db.run('INSERT INTO Products (name, desc, quantity, price) VALUES (?, ?, ?, ?)', [name, desc, quantity, price], function(err) {
                 if (err) return reject(err);
+                console.log(err);
                 resolve(this.lastID);
             });
         });
@@ -40,12 +41,12 @@ const getProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     const { id } = req.params;
-    const { name, description, quantity, price } = req.body;
+    const { name, desc, quantity, price } = req.body;
 
     try {
         await new Promise((resolve, reject) => {
-            db.run('UPDATE Products SET name = ?, description = ?, quantity = ?, price = ? WHERE id = ?', [name, description, quantity, price, id], function(err) {
-                if (err) return reject(err);
+            db.run('UPDATE Products SET name = ?, desc = ?, quantity = ?, price = ? WHERE id = ?', [name, desc, quantity, price, id], function(err) {
+              if (err) return reject(err);
                 resolve();
             });
         });
@@ -73,8 +74,8 @@ const deleteProduct = async (req, res) => {
 const getProducts = async (req, res) => {
     try {
         const rows = await new Promise((resolve, reject) => {
-            db.all('SELECT id, name, quantity, price FROM Products', [], (err, rows) => {
-                if (err) {
+            db.all('SELECT id, name, desc, quantity, price FROM Products', [], (err, rows) => {
+              if (err) {
                     return reject(err);
                 }
                 resolve(rows);
@@ -95,5 +96,6 @@ module.exports = {
     newProduct,
     getProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getProducts
 };

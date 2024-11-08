@@ -1,16 +1,8 @@
 import { useState } from 'react';
-import { useOutletContext, useNavigate, useLocation, useLoaderData } from "react-router-dom";
+import { useOutletContext, useNavigate, useLocation } from "react-router-dom";
 
-// import { getUsuarios } from "../data/UsuariosData";
-
-// export async function loader() {
-//   const usuariosList = await getUsuarios();
-//   return { usuariosList };
-// }
-
-export default function UserForm() {
+export default function UserFormUpdate() {
   var usuariosList = useOutletContext(); // Recebe dados da rota pai
-  // const { usuariosList } = useLoaderData();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,60 +16,58 @@ export default function UserForm() {
   const [password, setPassword] = useState(usuario.password);
   const [message, setMessage] = useState('');
 
-  const generateID = () => {
-    // Cria um conjunto de IDs da lista
-    const IDs = new Set(usuariosList.map(obj => obj.id));
 
-    // Checa qual o primeiro ID que ainda não foi usado
-    let newID = 1;
-    while (IDs.has(newID)) {
-      newID++;
-    }
-
-    return newID;
-  }
-
-  const handleSubmit = async (event) => {
+  const handleUpdate = async (event) => {
     event.preventDefault();
+
     // Cria o objeto do usuário a ser enviado
     const usuario = {
       name: nome,
       email: email,
-      password: password,
-      user_type: tipo
+      user_type: tipo,
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/rotas/users', { // Atualize para a URL do seu backend
-        method: 'POST',
+      const response = await fetch(`http://localhost:5000/api/rotas/users/${id}`, {
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usuario)
       });
       if (response.ok) {
-        setMessage('Usuário criado com sucesso!');
+        setMessage('Usuário atualizado com sucesso!');
         navigate('../'); // Navega de volta para a lista de usuários
-        navigate(0);
+        navigate(0); // Força refresh
       } else {
         const errorData = await response.json();
-        setMessage(`Erro ao criar usuário: ${errorData.error}`);
+        setMessage(`Erro ao atualizar usuário: ${errorData.error}`);
       }
     } catch (error) {
       setMessage('Erro ao conectar com o servidor.');
     }
   };
 
-  const handleDelete = () => {
-    console.log(usuariosList);
-    usuariosList = usuariosList.filter(function (x) { return x.id != id; });
-    console.log(usuariosList);
-
-    navigate('../');
-    // navigate(0); // Força refresh
+  const handleDelete = async (event) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/rotas/users/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (response.ok) {
+        setMessage('Usuário deletado com sucesso!');
+        navigate('../');
+        navigate(0); // Força refresh
+      } else {
+        const errorData = await response.json();
+        setMessage(`Erro ao deletar usuário: ${errorData.error}`);
+      }
+    } catch (error) {
+      setMessage('Erro ao conectar com o servidor.');
+    }
   };
 
   return (
     <div className="container w-50 p-3">
-      <form className="g-3 p-3" onSubmit={handleSubmit}>
+      <form className="g-3 p-3" onSubmit={handleUpdate}>
 
         <div className="row p-3">
           <div className="col-6">
@@ -111,7 +101,8 @@ export default function UserForm() {
               id="inputPassword"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required />
+              required
+              disabled />
           </div>
           <div className="col-6">
             <label htmlFor="inputTipo" className="form-label">Tipo</label>
@@ -125,12 +116,12 @@ export default function UserForm() {
           </div>
         </div>
 
-        <div className="row p-4">
+        <div className="row p-4 text-center">
           <div className="col-md">
-            <button onClick={handleDelete} type="button" className="btn btn-secondary">Deletar Usuário</button>
+            <button onClick={handleDelete} type="button" className="btn btn-outline-danger">Deletar Usuário</button>
           </div>
           <div className="col-md">
-            <button type="submit" className="btn btn-primary">Inserir Usuário</button>
+            <button type="submit" className="btn btn-success">Atualizar Usuário</button>
           </div>
         </div>
       </form>

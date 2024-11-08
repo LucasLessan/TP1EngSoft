@@ -98,7 +98,7 @@ const getUser = async (req, res) => {
     const { id } = req.params;
     try {
         const row = await new Promise((resolve, reject) => {
-            db.get('SELECT id, name, email, user_type FROM Users WHERE id = ?', [id], (err, row) => {
+            db.get('SELECT id, name, email, password, user_type FROM Users WHERE id = ?', [id], (err, row) => {
                 if (err) {
                     return reject(err);
                 }

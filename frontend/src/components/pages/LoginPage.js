@@ -33,7 +33,7 @@ export default function LoginPage() {
         alert("Login realizado com sucesso!");
         // Redireciona o usuário para a dashboard ou outra página
         // Exemplo: window.location.href = '/dashboard';
-        navigate('/index/dashboard');
+        navigate('/index/usuarios');
 
       } else {
         // Exibe a mensagem de erro no frontend
@@ -43,20 +43,6 @@ export default function LoginPage() {
       setErrorMessage('Erro de conexão com o servidor. Tente novamente mais tarde.');
     }
   };
-
-  // const handleLogin = (event) => {
-  //   event.preventDefault();
-  //   setEmail(document.getElementById('floatingInput').value);
-  //   setPassword(document.getElementById('floatingPassword').value);
-
-  //   if(email === 'admin' && password === 'admin') {
-  //     window.location.replace("/index/dashboard")
-  //   }
-  //   else {
-  //     // Exibe a mensagem de erro no frontend
-  //     setErrorMessage('Erro no login. Verifique suas credenciais.');
-  //   }
-  // }
 
   return (
     <div className={styles.login_background}>

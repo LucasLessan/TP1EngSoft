@@ -5,15 +5,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Error from './components/pages/Error';
 import LoginPage from './components/pages/LoginPage';
-import Index from './components/pages/Index'; // Se houver problema, mudar nome do arquivo para IndexPage
-import Dashboard from './components/layout/Dashboard';
+import Index from './components/pages/Index';
 import Usuarios from './components/layout/Usuarios';
-import UserList, { loader as usuariosLoader1 } from './components/layout/UserList';
-import UserForm, { loader as usuariosLoader2 } from './components/layout/UserForm';
+import UserList from './components/layout/UserList';
+import UserFormCreate from './components/layout/UserFormCreate';
+import UserFormUpdate from './components/layout/UserFormUpdate';
 import SalesPage from './components/layout/SalesPage';
 import Produtos from './components/layout/Produtos';
 import ProductList from './components/layout/ProductList';
-import ProductForm from './components/layout/ProductForm';
+import ProductFormCreate from './components/layout/ProductFormCreate';
+import ProductFormUpdate from './components/layout/ProductFormUpdate';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,22 +32,20 @@ const router = createBrowserRouter([
         element: <Index />,
         children: [
           {
-            path: "dashboard",
-            element: <Dashboard />,
-          },
-          {
             path: "usuarios",
             element: <Usuarios />,
             children: [
               {
                 index: true,
                 element: <UserList />,
-                // loader: usuariosLoader1,
               },
               {
                 path: "inserir",
-                element: <UserForm />,
-                // loader: usuariosLoader2,
+                element: <UserFormCreate />,
+              },
+              {
+                path: "update",
+                element: <UserFormUpdate />,
               },
             ],
           },
@@ -61,12 +60,14 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <ProductList />,
-                // loader: usuariosLoader1,
               },
               {
                 path: "inserir",
-                element: <ProductForm />,
-                // loader: usuariosLoader2,
+                element: <ProductFormCreate />,
+              },
+              {
+                path: "update",
+                element: <ProductFormUpdate />,
               },
             ],
           },

@@ -8,6 +8,7 @@ const salesItemController = require('../controllers/salesItensController');
 const rotas = express.Router(); // Cria um roteador do Express
 
 rotas.post('/users', usersController.newUser);
+rotas.get('/users/:id', usersController.getUser);
 rotas.put('/users/:id', usersController.updateUser);
 rotas.delete('/users/:id', usersController.deleteUser);
 rotas.put('/users/:id/permission', usersController.updateUserPermission);
