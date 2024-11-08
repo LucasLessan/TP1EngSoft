@@ -73,7 +73,7 @@ const deleteProduct = async (req, res) => {
 const getProducts = async (req, res) => {
     try {
         const rows = await new Promise((resolve, reject) => {
-            db.all('SELECT id, name, quantity, price FROM Products', [], (err, rows) => {
+            db.all('SELECT id, name, description, quantity, price FROM Products', [], (err, rows) => {
                 if (err) {
                     return reject(err);
                 }
@@ -95,5 +95,6 @@ module.exports = {
     newProduct,
     getProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getProducts
 };

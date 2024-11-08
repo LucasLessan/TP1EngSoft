@@ -14,6 +14,8 @@ export default function ProductForm() {
   const [name, setName] = useState(produto.name);
   const [quantity, setQuantity] = useState(produto.quantity);
   const [price, setPrice] = useState(produto.price);
+  const [message, setMessage] = useState('');
+  const [description] = useState('Produto');
 
   const generateID = () => {
     // Cria um conjunto de IDs da lista
@@ -27,7 +29,7 @@ export default function ProductForm() {
     
     return newID;
   }
-
+/*
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -42,6 +44,36 @@ export default function ProductForm() {
 
     // Volta para a view UserList
     navigate('../');
+  };
+  */
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // Cria o objeto do produto a ser enviado
+    const produto = {
+      name: name,
+      description: description,
+      quantity: quantity,
+      price: price
+    };
+    console.log(produto);
+    try {
+      const response = await fetch('http://localhost:5000/api/rotas/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(produto)
+      });
+      if (response.ok) {
+        setMessage('Produto criado com sucesso!');
+        navigate('../'); // Navega de volta para a lista de produtos
+        navigate(0);
+      } else {
+        const errorData = await response.json();
+        setMessage(`Erro ao criar produto: ${errorData.error}`);
+      }
+    } catch (error) {
+      setMessage('Erro ao conectar com o servidor.');
+    }
   };
 
   const handleDelete = () => {

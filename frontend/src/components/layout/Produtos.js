@@ -3,15 +3,15 @@ import { useState, useEffect } from 'react'; // Importando useState e useEffect 
 
 export default function Produtos() {
   // Exemplo de produtos
-  const [ProdutosList, setProdutosList] = useState([]); // Estado para armazenar a lista de usuários
+  const [products, setProdutosList] = useState([]); // Estado para armazenar a lista de usuários
   const [error, setError] = useState(null); // Estado para armazenar erros (caso aconteçam)
 
-  // Função para carregar os usuários da API
+  // Função para carregar os produtos da API
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
         // Fazendo a requisição GET para buscar os produtos
-        const response = await fetch('http://localhost:5000/api/rotas/produtos');
+        const response = await fetch('http://localhost:5000/api/rotas/products');
         if (!response.ok) {
           throw new Error('Erro ao carregar os produtos');
         }
