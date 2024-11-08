@@ -9,9 +9,10 @@ export default function ProductForm() {
   const location = useLocation();
 
   // Preenche com valor de location.state se existir, ou seja, se o botão de editar na lista foi clicado
-  var produto = location.state ? location.state.produto : { id: -1, name: '', price: 0.0 };
+  var produto = location.state ? location.state.produto : { id: -1, name: '', quantity: 0.0, price: 0.0 };
   const [id, setId] = useState(produto.id);
   const [name, setName] = useState(produto.name);
+  const [quantity, setQuantity] = useState(produto.quantity);
   const [price, setPrice] = useState(produto.price);
 
   const generateID = () => {
@@ -33,7 +34,8 @@ export default function ProductForm() {
     // Cria objeto produto
     setName(document.getElementById('inputNome').value);
     setPrice(document.getElementById('inputValor').value);
-    var produto = { id: generateID(), name: name, price: price };
+    setQuantity(document.getElementById('inputQuantidade').value);
+    var produto = { id: generateID(), name: name, quantity: quantity, price: price };
     
     // Insere objeto produto no array de produtos
     products.push(produto);
@@ -52,33 +54,52 @@ export default function ProductForm() {
   };
 
   return (
-    <div className="container w-75">
-      <form className="row g-3" onSubmit={handleSubmit}>
-        <div className="col-sm">
-          <label htmlFor="inputNome" className="form-label">Nome</label>
-          <input
-            type="text"
-            className="form-control"
-            id="inputNome"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+    <div className="container w-50 p-3">
+      <form className="g-3 p-3" onSubmit={handleSubmit}>
+
+        <div className="row p-3">
+          <div className="col-6">
+            <label htmlFor="inputNome" className="form-label">Nome</label>
+            <input
+              type="text"
+              className="form-control h-75"
+              id="inputNome"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required />
+          </div>
+          <div className="col-6">
+            <label htmlFor="inputQuantidade" className="form-label">Quantidade</label>
+            <input
+            type="number"
+            className="form-control h-75"
+            id="inputQuantidade"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
             required />
+          </div>
         </div>
-        <div className="col-sm">
-          <label htmlFor="inputEmail" className="form-label">Valor</label>
-          <input
-          type="number"
-          className="form-control"
-          id="inputValor"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required />
+
+        <div className="row p-3">
+          <div className="col-6">
+            <label htmlFor="inputValor" className="form-label">Preço</label>
+            <input
+            type="number"
+            className="form-control h-75"
+            id="inputValor"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required />
+          </div>
         </div>
-        <div className="col-md-6">
-          <button onClick={handleDelete} type="button" className="btn btn-secondary">Deletar Produto</button>
-        </div>
-        <div className="col-md-6">
-          <button type="submit" className="btn btn-primary">Inserir Produto</button>
+
+        <div className="row p-4">
+          <div className="col-md">
+            <button onClick={handleDelete} type="button" className="btn btn-secondary">Deletar Produto</button>
+          </div>
+          <div className="col-md">
+            <button type="submit" className="btn btn-primary">Inserir Produto</button>
+          </div>
         </div>
       </form>
     </div>

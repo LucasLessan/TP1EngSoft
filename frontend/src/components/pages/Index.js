@@ -7,9 +7,9 @@ import styles from './Index.module.css';
 
 export default function Index() {
   return (
-    <div>
+    <div className={`${styles.app_div}`}>
       <Navbar />
-      <div className="container">
+      <div className={`container-fluid`}>
         <Outlet />
       </div>
       <Footer />
