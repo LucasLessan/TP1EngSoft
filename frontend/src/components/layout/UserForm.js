@@ -18,8 +18,8 @@ export default function UserForm() {
   // Preenche com valor de location.state se existir, ou seja, se o botão de editar na lista foi clicado
   var usuario = location.state ? location.state.usuario : {id: -1, nome: '', tipo: '', email: '', password: ''};
   const [id, setId] = useState(usuario.id);
-  const [nome, setNome] = useState(usuario.nome);
-  const [tipo, setTipo] = useState(usuario.tipo);
+  const [nome, setNome] = useState(usuario.name);
+  const [tipo, setTipo] = useState(usuario.user_type);
   const [email, setEmail] = useState(usuario.email);
   const [password, setPassword] = useState(usuario.password);
 
@@ -107,6 +107,7 @@ export default function UserForm() {
               <option>Vendedor</option>
               <option>Gerente</option>
               <option>Diretor</option>
+              <option>Admin</option>
             </select>
           </div>
         </div>

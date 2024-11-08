@@ -39,11 +39,11 @@ export default function UserList() {
               {usuariosList.map((item) => (
                 <tr key={item.id}>
                   <th scope="row" className="text-center">{item.id}</th>
-                  <td className="text-center">{item.nome}</td>
-                  <td className="text-center">{item.tipo}</td>
+                  <td className="text-center">{item.name}</td>
+                  <td className="text-center">{item.user_type}</td>
                   <td className="text-center">{item.email}</td>
                   <td className="text-center">
-                    <Link to="inserir" state={{ usuario: item}} className={`btn btn-outline-secondary`}>Editar</Link>
+                    <Link to="inserir" state={{ usuario: item }} className={`btn btn-outline-secondary`}>Editar</Link>
                   </td>
                   <td className="text-center">
                     <button className={`btn btn-outline-danger`} onClick={() => handleDelete(item.id)}>Remover</button>
