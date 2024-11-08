@@ -1,34 +1,44 @@
-const db = require('../database/db');
+const { readSales, readSalesItems } = require('../database/crud');
 
-// Obter relatório de vendas
+// Generate sales report by seller
 const getSalesReport = async (req, res) => {
     try {
-        const report = await new Promise((resolve, reject) => {
-            db.all('SELECT seller_id, SUM(total_value) AS total_sales FROM Sales GROUP BY seller_id', (err, rows) => {
-                if (err) return reject(err);
-                resolve(rows);
-            });
-        });
+        readSales(null, null, null, null, null, null, null, (err, sales) => {
+            if (err) {
+                return res.status(500).json({ error: 'Error retrieving sales report.' });
+            }
 
-        return res.status(200).json(report);
+            const report = sales.reduce((acc, sale) => {
+                const { seller_id, total_value } = sale;
+                acc[seller_id] = (acc[seller_id] || 0) + total_value;
+                return acc;
+            }, {});
+
+            res.status(200).json(report);
+        });
     } catch (err) {
-        return res.status(500).json({ error: 'Erro ao gerar relatório de vendas.' });
+        res.status(500).json({ error: 'Error generating sales report.' });
     }
 };
 
-// Obter relatório de produtos
+// Generate product sales report
 const getProductsReport = async (req, res) => {
     try {
-        const report = await new Promise((resolve, reject) => {
-            db.all('SELECT name, SUM(quantity) AS total_sold FROM SalesItems JOIN Products ON SalesItems.product_id = Products.id GROUP BY Products.id', (err, rows) => {
-                if (err) return reject(err);
-                resolve(rows);
-            });
-        });
+        readSalesItems(null, null, null, null, (err, salesItems) => {
+            if (err) {
+                return res.status(500).json({ error: 'Error retrieving products report.' });
+            }
 
-        return res.status(200).json(report);
+            const report = salesItems.reduce((acc, item) => {
+                const { description, quantity } = item;
+                acc[description] = (acc[description] || 0) + quantity;
+                return acc;
+            }, {});
+
+            res.status(200).json(report);
+        });
     } catch (err) {
-        return res.status(500).json({ error: 'Erro ao gerar relatório de produtos.' });
+        res.status(500).json({ error: 'Error generating product report.' });
     }
 };
 

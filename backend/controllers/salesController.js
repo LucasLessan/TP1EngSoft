@@ -1,6 +1,6 @@
-// saleController.js
-const db = require('../database/db');
+const crud = require('../database/crud');  // Importing the crud functions
 
+// Function to create a new sale
 const newSale = async (req, res) => {
     const { seller_id, sale_date, total_value, items } = req.body;
 
@@ -9,46 +9,32 @@ const newSale = async (req, res) => {
     }
 
     try {
-        const saleId = await new Promise((resolve, reject) => {
-            db.run('INSERT INTO Sales (seller_id, sale_date, total_value) VALUES (?, ?, ?)', [seller_id, sale_date, total_value], function(err) {
+        const result = await new Promise((resolve, reject) => {
+            crud.createSale(seller_id, total_value, null, null, null, null, null, (err, result) => {  // Using the createSale function from crud
                 if (err) return reject(err);
-                resolve(this.lastID);
+                resolve(result);
             });
         });
 
-        await Promise.all(items.map(item => {
-            return new Promise((resolve, reject) => {
-                db.run('INSERT INTO SalesItems (sale_id, product_id, quantity, price) VALUES (?, ?, ?, ?)', [saleId, item.product_id, item.quantity, item.price], (err) => {
-                    if (err) return reject(err);
-                    resolve();
-                });
-            });
-        }));
-
-        return res.status(201).json({ saleId, message: 'Venda criada com sucesso!' });
+        return res.status(201).json({ id: result, message: 'Venda criada com sucesso!' });
     } catch (err) {
         return res.status(500).json({ error: 'Erro ao criar venda.' });
     }
 };
 
+// Function to get a sale
 const getSale = async (req, res) => {
-    const { id } = req.params;
+    const { id, seller_id, sale_date, total_value, payment_method, installment, num_installments, discount } = req.body;
     try {
         const sale = await new Promise((resolve, reject) => {
-            db.get('SELECT * FROM Sales WHERE id = ?', [id], (err, row) => {
+            crud.readSales(id, seller_id, sale_date, total_value, payment_method, 
+                installment, num_installments, discount, (err, rows) => {  // Using the readSales function from crud
                 if (err) return reject(err);
-                resolve(row);
+                resolve(rows[0]);
             });
         });
 
         if (!sale) return res.status(404).json({ error: 'Venda não encontrada.' });
-
-        const items = await new Promise((resolve, reject) => {
-            db.all('SELECT * FROM SalesItems WHERE sale_id = ?', [id], (err, rows) => {
-                if (err) return reject(err);
-                resolve(rows);
-            });
-        });
 
         return res.status(200).json({ ...sale, items });
     } catch (err) {
@@ -56,18 +42,40 @@ const getSale = async (req, res) => {
     }
 };
 
+// Function to update a sale
+const updateSale = async (req, res) => {
+    const { id } = req.params;
+    const { seller_id, sale_date, total_value, payment_method, installment, num_installments, discount } = req.body;
+
+    try {
+        // Update the sale details (seller_id, sale_date, total_value)
+        await new Promise((resolve, reject) => {
+            crud.updateSale(id, seller_id, sale_date, total_value, payment_method, 
+                installment, num_installments, discount, (err) => {  // Using the updateSale function from crud
+                if (err) return reject(err);
+                resolve();
+            });
+        });
+
+        return res.status(200).json({ message: 'Venda atualizada com sucesso!' });
+    } catch (err) {
+        return res.status(500).json({ error: 'Erro ao atualizar venda.' });
+    }
+};
+
+// Function to delete a sale
 const deleteSale = async (req, res) => {
     const { id } = req.params;
     try {
         await new Promise((resolve, reject) => {
-            db.run('DELETE FROM Sales WHERE id = ?', [id], function(err) {
+            crud.deleteSale(id, (err) => {  // Using the deleteSale function from crud
                 if (err) return reject(err);
                 resolve();
             });
         });
 
         await new Promise((resolve, reject) => {
-            db.run('DELETE FROM SalesItems WHERE sale_id = ?', [id], function(err) {
+            crud.deleteSaleItem(id, (err) => {  // Using the deleteSaleItem function from crud
                 if (err) return reject(err);
                 resolve();
             });
@@ -82,5 +90,6 @@ const deleteSale = async (req, res) => {
 module.exports = {
     newSale,
     getSale,
+    updateSale,
     deleteSale
 };
