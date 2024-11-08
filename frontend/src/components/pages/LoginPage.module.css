@@ -74,7 +74,7 @@
   align-items: center;
 }
 
-h2 {
+.login_title {
   margin-bottom: 20px;
   text-align: center;
   color: #333;
@@ -95,7 +95,7 @@ h2 {
 }
 
 /* Estilização dos inputs */
-input {
+.login_input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -103,13 +103,13 @@ input {
   box-sizing: border-box;
 }
 
-input:focus {
+.login_input:focus {
   border-color: #007BFF;
   outline: none;
 }
 
 /* Botão de login */
-button {
+.login_button {
   padding: 10px;
   background-color: #14d4a4;
   border: none;
@@ -121,7 +121,7 @@ button {
   transition: 0.3s;
 }
 
-button:hover {
+.login_button:hover {
   background-color: #0c5c94;
 }
 

@@ -10,9 +10,9 @@ const newUser = async (req, res) => {
         return res.status(400).json({ error: 'Preencha todos os campos.' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     try {
+        // Gerar o hash da senha
+        const hashedPassword = await bcrypt.hash(password, 10);
         const result = await new Promise((resolve, reject) => {
             crud.createUser(name, email, hashedPassword, user_type, (err, result) => {  // Using the createUser function from crud
                 if (err) {
@@ -21,11 +21,13 @@ const newUser = async (req, res) => {
                 resolve(result);
             });
         });
+
         return res.status(201).json({ id: result, message: 'Usuário criado com sucesso!' });
     } catch (err) {
+        console.error("Erro geral ao inserir usuário:", err); // Log adicional para erros gerais
         return res.status(500).json({ error: 'Erro ao criar usuário.' });
     }
-}
+};
 
 // Function to update a user
 const updateUser = async (req, res) => {
@@ -88,9 +90,10 @@ const getUser = async (req, res) => {
 };
 
 module.exports = {
+    getUser,
+    getUsers,  // Não se esqueça de exportar a nova função
     newUser,
     updateUser,
-    getUser,
     deleteUser,
     updateUserPermission
 };

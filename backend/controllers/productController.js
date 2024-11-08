@@ -69,9 +69,31 @@ const deleteProduct = async (req, res) => {
     }
 };
 
+const getProducts = async (req, res) => {
+    try {
+        const rows = await new Promise((resolve, reject) => {
+            db.all('SELECT id, name, desc, quantity, price FROM Products', [], (err, rows) => {
+              if (err) {
+                    return reject(err);
+                }
+                resolve(rows);
+            });
+        });
+
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Nenhum produto encontrado.' });
+        }
+        return res.status(200).json(rows);
+    } catch (err) {
+        return res.status(500).json({ error: 'Erro ao buscar produtos.' });
+    }
+};
+
+
 module.exports = {
     newProduct,
     getProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getProducts
 };
