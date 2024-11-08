@@ -51,3 +51,4 @@ CREATE TABLE SalesItems (
 
 INSERT INTO Users (id, name, email, password, user_type) VALUES (0, 'Junin Zik4', 'junin244@pointify.com', '$2b$10$2cDEQ4XppsQQmY71w2a5V.EDX6x.q4b0zlHpNTIljGqnbl99vFmf2', 'Admin');
 INSERT INTO Users (id, name, email, password, user_type) VALUES (1, 'Junin Zik42', 'junin2442@pointify.com', '$2b$10$2cDEQ4XppsQQmY71w2a5V.EDX6x.q4b0zlHpNTIljGqnbl99vFmf2', 'Admin');
+INSERT INTO Products (name, description, quantity, price) VALUES ('Manga', 'Uma manga', '200', '4');
