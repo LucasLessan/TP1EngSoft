@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
 
-function Navbar() {
+import styles from './Navbar.module.css';
+
+export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
+    // <nav className={`navbar navbar-expand-lg bg-body-tertiary sticky-top`}>
+    <nav className={`navbar navbar-expand-lg sticky-top ${styles.nav}`}>
+      <div className={`container-fluid`}>
         <Link to="dashboard" className="navbar-brand">Home</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -20,7 +23,7 @@ function Navbar() {
               <Link to="vendas" className="nav-link">Vendas</Link>
             </li>
             <li className="nav-item">
-              <Link to="estoque" className="nav-link">Estoque</Link>
+              <Link to="produtos" className="nav-link">Produtos</Link>
             </li>
             <li className="nav-item">
               <Link to="/" className="nav-link">Logout</Link>
@@ -31,5 +34,3 @@ function Navbar() {
     </nav>
   );
 };
-
-export default Navbar;

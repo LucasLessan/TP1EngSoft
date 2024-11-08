@@ -8,8 +8,12 @@ import LoginPage from './components/pages/LoginPage';
 import Index from './components/pages/Index'; // Se houver problema, mudar nome do arquivo para IndexPage
 import Dashboard from './components/layout/Dashboard';
 import Usuarios from './components/layout/Usuarios';
+import UserList, { loader as usuariosLoader1 } from './components/layout/UserList';
+import UserForm, { loader as usuariosLoader2 } from './components/layout/UserForm';
 import SalesPage from './components/layout/SalesPage';
-import Estoque from './components/layout/Estoque';
+import Produtos from './components/layout/Produtos';
+import ProductList from './components/layout/ProductList';
+import ProductForm from './components/layout/ProductForm';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -33,14 +37,38 @@ const router = createBrowserRouter([
           {
             path: "usuarios",
             element: <Usuarios />,
+            children: [
+              {
+                index: true,
+                element: <UserList />,
+                // loader: usuariosLoader1,
+              },
+              {
+                path: "inserir",
+                element: <UserForm />,
+                // loader: usuariosLoader2,
+              },
+            ],
           },
           {
             path: "vendas",
             element: <SalesPage />,
           },
           {
-            path: "estoque",
-            element: <Estoque />,
+            path: "produtos",
+            element: <Produtos />,
+            children: [
+              {
+                index: true,
+                element: <ProductList />,
+                // loader: usuariosLoader1,
+              },
+              {
+                path: "inserir",
+                element: <ProductForm />,
+                // loader: usuariosLoader2,
+              },
+            ],
           },
         ],
       },

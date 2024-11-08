@@ -55,3 +55,4 @@ CREATE TABLE SalesItems (
     FOREIGN KEY (product_id) REFERENCES Products(id)
 );
 
+INSERT INTO Users (id, name, email, password, user_type) VALUES (0, 'Junin Zik4', 'junin244@pointify.com', '$2b$10$2cDEQ4XppsQQmY71w2a5V.EDX6x.q4b0zlHpNTIljGqnbl99vFmf2', 'Admin');

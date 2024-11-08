@@ -13,7 +13,7 @@ const newUser = async (req, res) => {
 
     try {
         const result = await new Promise((resolve, reject) => {
-            db.run('INSERT INTO Users (name, email, password, user_type) VALUES (?, ?, ?, ?)', [name, email, hashedPassword, user_type], function(err) {
+            db.run('INSERT INTO Users (name, email, password, user_type) VALUES (?, ?, ?, ?)', [name, email, hashedPassword, user_type], function (err) {
                 if (err) {
                     return reject(err);
                 }
@@ -32,7 +32,7 @@ const updateUser = async (req, res) => {
 
     try {
         await new Promise((resolve, reject) => {
-            db.run('UPDATE Users SET name = ?, email = ?, user_type = ? WHERE id = ?', [name, email, user_type, id], function(err) {
+            db.run('UPDATE Users SET name = ?, email = ?, user_type = ? WHERE id = ?', [name, email, user_type, id], function (err) {
                 if (err) {
                     return reject(err);
                 }
@@ -55,7 +55,7 @@ const updateUserPermission = async (req, res) => {
 
     try {
         await new Promise((resolve, reject) => {
-            db.run('UPDATE Users SET user_type = ? WHERE id = ?', [user_type, id], function(err) {
+            db.run('UPDATE Users SET user_type = ? WHERE id = ?', [user_type, id], function (err) {
                 if (err) {
                     return reject(err);
                 }
@@ -72,7 +72,7 @@ const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
         await new Promise((resolve, reject) => {
-            db.run('DELETE FROM Users WHERE id = ?', [id], function(err) {
+            db.run('DELETE FROM Users WHERE id = ?', [id], function (err) {
                 if (err) {
                     return reject(err);
                 }
@@ -85,7 +85,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
-const getUser =  async (req, res) => {
+const getUser = async (req, res) => {
     const { id } = req.params;
     try {
         const row = await new Promise((resolve, reject) => {
@@ -106,15 +106,31 @@ const getUser =  async (req, res) => {
     }
 };
 
+const getUsers = async (req, res) => {
+    try {
+        const rows = await new Promise((resolve, reject) => {
+            db.all('SELECT id, name, email, password, user_type FROM Users', [], (err, rows) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(rows);
+            });
+        });
 
-
-
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Nenhum usuário encontrado.' });
+        }
+        return res.status(200).json(rows);
+    } catch (err) {
+        return res.status(500).json({ error: 'Erro ao buscar usuários.' });
+    }
+};
 
 module.exports = {
+    getUser,
+    getUsers,  // Não se esqueça de exportar a nova função
     newUser,
     updateUser,
-    getUser,
     deleteUser,
-    updateUserPermission
-  };
-  
+    updateUserPermission,
+};
