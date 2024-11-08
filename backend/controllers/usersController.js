@@ -29,6 +29,28 @@ const newUser = async (req, res) => {
     }
 };
 
+// Function to get a specific user
+const getUser = async (req, res) => {
+    const { id, name, email, user_type } = req.body;
+    try {
+        const row = await new Promise((resolve, reject) => {
+            crud.getUser(id, name, email, user_type, (err, row) => {  // Using the getUser function from crud
+                if (err) {
+                    return reject(err);
+                }
+                resolve(row);
+            });
+        });
+
+        if (!row) {
+            return res.status(404).json({ error: 'Usuário não encontrado.' });
+        }
+        return res.status(200).json(row);
+    } catch (err) {
+        return res.status(500).json({ error: 'Erro ao buscar usuário.' });
+    }
+};
+
 // Function to update a user
 const updateUser = async (req, res) => {
     const { id } = req.params;
@@ -67,33 +89,10 @@ const deleteUser = async (req, res) => {
     }
 };
 
-// Function to get a specific user
-const getUser = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const row = await new Promise((resolve, reject) => {
-            crud.getUser(id, (err, row) => {  // Using the getUser function from crud
-                if (err) {
-                    return reject(err);
-                }
-                resolve(row);
-            });
-        });
-
-        if (!row) {
-            return res.status(404).json({ error: 'Usuário não encontrado.' });
-        }
-        return res.status(200).json(row);
-    } catch (err) {
-        return res.status(500).json({ error: 'Erro ao buscar usuário.' });
-    }
-};
 
 module.exports = {
-    getUser,
-    getUsers,  // Não se esqueça de exportar a nova função
     newUser,
+    getUser,
     updateUser,
     deleteUser,
-    updateUserPermission
 };

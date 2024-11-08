@@ -24,7 +24,7 @@ const getSalesReport = async (req, res) => {
 // Generate product sales report
 const getProductsReport = async (req, res) => {
     try {
-        readSalesItems([], null, null, null, (err, salesItems) => {
+        readSalesItems(null, null, null, null, (err, salesItems) => {
             if (err) {
                 return res.status(500).json({ error: 'Error retrieving products report.' });
             }

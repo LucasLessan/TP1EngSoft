@@ -23,10 +23,10 @@ const addSalesItem = async (req, res) => {
 
 // Function to get all sales items for a specific sale
 const getSalesItems = async (req, res) => {
-    const { sale_id } = req.params;
+    const { sale_id, product_id, quantity, price } = req.body;
     try {
         const items = await new Promise((resolve, reject) => {
-            crud.readProductsInSale([sale_id], null, null, null, (err, rows) => {  // Using the readProductsInSale function from crud
+            crud.readSalesItems(sale_id, product_id, quantity, price, (err, rows) => {  // Using the readProductsInSale function from crud
                 if (err) return reject(err);
                 resolve(rows);
             });
@@ -40,15 +40,11 @@ const getSalesItems = async (req, res) => {
 // Function to update a sales item
 const updateSalesItem = async (req, res) => {
     const { id } = req.params;
-    const { quantity, price } = req.body;
-
-    if (!quantity || !price) {
-        return res.status(400).json({ error: 'Preencha todos os campos.' });
-    }
+    const { sale_id, product_id, quantity, price } = req.body;
 
     try {
         await new Promise((resolve, reject) => {
-            crud.updateSaleItem(id, quantity, price, (err) => {  // Using the updateSaleItem function from crud
+            crud.updateSaleItem(id, sale_id, product_id, quantity, price, (err) => {  // Using the updateSaleItem function from crud
                 if (err) return reject(err);
                 resolve();
             });
