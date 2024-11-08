@@ -16,46 +16,59 @@ export default function UserForm() {
   const location = useLocation();
 
   // Preenche com valor de location.state se existir, ou seja, se o botão de editar na lista foi clicado
-  var usuario = location.state ? location.state.usuario : {id: -1, nome: '', tipo: '', email: '', password: ''};
+  var usuario = location.state ? location.state.usuario : { id: -1, nome: '', tipo: '', email: '', password: '' };
   const [id, setId] = useState(usuario.id);
   const [nome, setNome] = useState(usuario.name);
   const [tipo, setTipo] = useState(usuario.user_type);
   const [email, setEmail] = useState(usuario.email);
   const [password, setPassword] = useState(usuario.password);
+  const [message, setMessage] = useState('');
 
   const generateID = () => {
     // Cria um conjunto de IDs da lista
     const IDs = new Set(usuariosList.map(obj => obj.id));
-    
+
     // Checa qual o primeiro ID que ainda não foi usado
     let newID = 1;
     while (IDs.has(newID)) {
       newID++;
     }
-    
+
     return newID;
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    // Cria o objeto do usuário a ser enviado
+    const usuario = {
+      name: nome,
+      email: email,
+      password: password,
+      user_type: tipo
+    };
 
-    // Cria objeto usuario
-    setNome(document.getElementById('inputNome').value);
-    setTipo(document.getElementById('inputTipo').value);
-    setEmail(document.getElementById('inputEmail').value);
-    setPassword(document.getElementById('inputPassword').value);
-    var usuario = { id: generateID(), nome: nome, tipo: tipo, email: email, password: password };
-    
-    // Insere objeto usuario no array de usuarios
-    usuariosList.push(usuario);
-
-    // Volta para a view UserList
-    navigate('../');
+    try {
+      const response = await fetch('http://localhost:5000/api/rotas/users', { // Atualize para a URL do seu backend
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(usuario)
+      });
+      if (response.ok) {
+        setMessage('Usuário criado com sucesso!');
+        navigate('../'); // Navega de volta para a lista de usuários
+        navigate(0);
+      } else {
+        const errorData = await response.json();
+        setMessage(`Erro ao criar usuário: ${errorData.error}`);
+      }
+    } catch (error) {
+      setMessage('Erro ao conectar com o servidor.');
+    }
   };
 
   const handleDelete = () => {
     console.log(usuariosList);
-    usuariosList = usuariosList.filter(function(x) { return x.id != id; }); 
+    usuariosList = usuariosList.filter(function (x) { return x.id != id; });
     console.log(usuariosList);
 
     navigate('../');
@@ -65,7 +78,7 @@ export default function UserForm() {
   return (
     <div className="container w-50 p-3">
       <form className="g-3 p-3" onSubmit={handleSubmit}>
-  
+
         <div className="row p-3">
           <div className="col-6">
             <label htmlFor="inputNome" className="form-label">Nome</label>

@@ -13,7 +13,7 @@ CREATE TABLE Users (
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    user_type TEXT CHECK(user_type IN ('Gerente', 'Admin', 'Diretor', 'Vendedor')) NOT NULL
+    user_type TEXT CHECK(user_type IN ('salesman', 'admin', 'manager')) NOT NULL
 );
 
 -- Table 02: Products
@@ -31,10 +31,16 @@ CREATE TABLE Products (
 CREATE TABLE Sales (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     seller_id INTEGER,
-    sale_date TEXT NOT NULL,
+    sale_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     total_value REAL NOT NULL,
+    payment_method TEXT NOT NULL CHECK (payment_method IN ('Debit Card', 'Credit Card', 'PIX', 'Bank Transfer', 'Cash')),
+    installment BOOLEAN NOT NULL, 
+    number_of_installments INTEGER,  
+    installment_value REAL,
+    discount REAL DEFAULT 0,
     FOREIGN KEY (seller_id) REFERENCES Users(id)
 );
+
 
 -- Table 04: SalesItems
 ----------- relationship between products and sales
@@ -50,4 +56,3 @@ CREATE TABLE SalesItems (
 );
 
 INSERT INTO Users (id, name, email, password, user_type) VALUES (0, 'Junin Zik4', 'junin244@pointify.com', '$2b$10$2cDEQ4XppsQQmY71w2a5V.EDX6x.q4b0zlHpNTIljGqnbl99vFmf2', 'Admin');
-INSERT INTO Users (id, name, email, password, user_type) VALUES (1, 'Junin Zik42', 'junin2442@pointify.com', '$2b$10$2cDEQ4XppsQQmY71w2a5V.EDX6x.q4b0zlHpNTIljGqnbl99vFmf2', 'Admin');

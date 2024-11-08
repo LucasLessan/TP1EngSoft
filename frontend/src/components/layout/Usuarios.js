@@ -10,9 +10,9 @@ export default function Usuarios() {
     const fetchUsuarios = async () => {
       try {
         // Fazendo a requisição GET para buscar os usuários
-        const response = await fetch('http://localhost:5000/api/rotas/users');
+        const response = await fetch('http://localhost:5000/api/rotas/products');
         if (!response.ok) {
-          throw new Error('Erro ao carregar os usuários');
+          throw new Error('Erro ao carregar os produtos');
         }
         const data = await response.json(); // Convertendo a resposta para JSON
         console.log(data);

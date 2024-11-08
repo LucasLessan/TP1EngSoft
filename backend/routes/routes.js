@@ -18,7 +18,7 @@ rotas.post('/products', productController.newProduct);
 rotas.get('/products/:id', productController.getProduct);
 rotas.put('/products/:id', productController.updateProduct);
 rotas.delete('/products/:id', productController.deleteProduct);
-
+rotas.get('/products', productController.getProducts);
 
 rotas.post('/sales', saleController.newSale);
 rotas.get('/sales/:id', saleController.getSale);

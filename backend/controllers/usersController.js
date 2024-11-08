@@ -2,6 +2,7 @@ const db = require('../database/db'); // Conexão com o banco de dados
 const bcrypt = require('bcrypt'); // Para comparação de senhas
 const jwt = require('jsonwebtoken'); // Para geração e verificação de tokens
 
+// Inserir novo usuário
 const newUser = async (req, res) => {
     const { name, email, password, user_type } = req.body;
 
@@ -9,22 +10,30 @@ const newUser = async (req, res) => {
         return res.status(400).json({ error: 'Preencha todos os campos.' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     try {
+        // Gerar o hash da senha
+        const hashedPassword = await bcrypt.hash(password, 10);
         const result = await new Promise((resolve, reject) => {
-            db.run('INSERT INTO Users (name, email, password, user_type) VALUES (?, ?, ?, ?)', [name, email, hashedPassword, user_type], function (err) {
-                if (err) {
-                    return reject(err);
+            db.run(
+                'INSERT INTO Users (name, email, password, user_type) VALUES (?, ?, ?, ?)', 
+                [name, email, hashedPassword, user_type], 
+                function (err) {
+                    if (err) {
+                        console.error("Erro ao inserir usuário:", err); // Log do erro para debug
+                        return reject(err);
+                    }
+                    console.log("Usuário inserido com ID:", this.lastID); // Log do ID gerado
+                    resolve(this.lastID); 
                 }
-                resolve(this.lastID);
-            });
+            );
         });
+
         return res.status(201).json({ id: result, message: 'Usuário criado com sucesso!' });
     } catch (err) {
+        console.error("Erro geral ao inserir usuário:", err); // Log adicional para erros gerais
         return res.status(500).json({ error: 'Erro ao criar usuário.' });
     }
-}
+};
 
 const updateUser = async (req, res) => {
     const { id } = req.params;
